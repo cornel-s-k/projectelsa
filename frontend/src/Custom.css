@@ -1,0 +1,81 @@
+/* Custom CSS for all components */
+
+/* Header Component */
+.btn-custom-hover {
+  transition: background-color 0.3s ease;
+}
+
+.btn-custom-hover:hover,
+.btn-custom-hover:active,
+.btn-custom-hover:focus {
+  background-color: #A8A196 !important;
+  color: #0D0D0D;
+}
+
+/* HistoryTimeline Component */
+.sejarah-title {
+  color: #730303;
+}
+.timeline {
+  height:400px; /* Atur ketinggian total timeline */
+}
+.timeline-line {
+  height: 0;
+  border-top: 3px dashed #730303;
+  z-index: 1;
+}
+.timeline-item {
+  z-index: 2;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+}
+.timeline-item.top {
+  transform: translateY(-50%);
+}
+.timeline-item.bottom {
+  transform: translateY(50%);
+}
+.circle {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 3px solid #730303;
+  z-index: 3;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.timeline-item.top .circle {
+  bottom: 0;
+}
+.timeline-item.bottom .circle {
+  top: 0;
+}
+.highlight-box {
+  background-color: #8e1616;
+  color: #ead196;
+}
+.normal-box {
+  background-color: #ead196;
+  color: #8e1616;
+}
+.year-text {
+  font-weight: bold;
+}
+
+/* Tugas Component */
+.custom-btn {
+  background-color: #ead196;
+  color: #8e1616;
+  border-color: #ead196;
+  transition: background-color 0.3s ease;
+}
+.custom-btn:hover {
+  background-color: #d1b87d;
+  border-color: #d1b87d;
+}
+.text-danger {
+  color: #8e1616 !important;
+}
+.custom-margin-top {
+  margin-top: 100px; /* Jarak atas custom untuk section */
+}
