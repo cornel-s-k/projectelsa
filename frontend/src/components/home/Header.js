@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // ⬅️ Tambah ini
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js"; // penting untuk toggler
 import logo from "../../assets/home/logo.png";
@@ -10,9 +11,9 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div className="container">
           {/* Logo */}
-          <a className="navbar-brand d-flex align-items-center" href="#">
+          <Link className="navbar-brand d-flex align-items-center" to="/">
             <img src={logo} style={{ height: "80px" }} alt="Logo" />
-          </a>
+          </Link>
 
           {/* Hamburger Button */}
           <button
@@ -31,39 +32,39 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto align-items-lg-center">
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  About
-                </a>
+                <Link className="nav-link" to="/about">
+                  Tentang
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/fasilitas">
                   Fasilitas
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/layanan">
                   Layanan
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/hkp">
                   HKP
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/survey">
                   Survey
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/faq">
                   FAQ
-                </a>
+                </Link>
               </li>
               <li className="nav-item ms-lg-3">
                 <button

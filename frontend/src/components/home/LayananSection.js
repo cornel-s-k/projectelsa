@@ -12,31 +12,26 @@ const LayananSection = () => {
   const services = [
     {
       title: "Sub Lab Model Fisik Dinamika Pantai",
-      subtitle: "Sub Lab Model Fisik Dinamika Pantai",
       description: "Paket Pengujian Model Fisik di Kolam Gelombang 3D",
       image: image1,
     },
     {
       title: "Sub Lab Model Fisik Dinamika Pantai",
-      subtitle: "Sub Lab Model Fisik Dinamika Pantai",
       description: "Paket Pengujian Model Fisik di Saluran Gelombang 2D",
       image: image2,
     },
     {
-      title: "Sub Lab Simulasi Hidro-Oseanografi dan Interaksi Air-Struktur",
-      subtitle: "Sub Lab Simulasi Hidro-Oseanografi dan Interaksi Air-Struktur",
+      title: "Sub Lab Simulasi Hidro-Oseanografi",
       description: "Pemodelan Hidrodinamika menggunakan MIKE 21",
       image: image3,
     },
     {
-      title: "Sub Lab Simulasi Hidro-Oseanografi dan Interaksi Air-Struktur",
-      subtitle: "Sub Lab Simulasi Hidro-Oseanografi dan Interaksi Air-Struktur",
+      title: "Sub Lab Simulasi Interaksi Air-Struktur",
       description: "Pemodelan Hidrodinamika menggunakan Flow 3D",
       image: image4,
     },
     {
-      title: "Sub Lab Mekanika Tanah dan Akuisisi Data Lapangan Pesisir",
-      subtitle: "Sub Lab Mekanika Tanah dan Akuisisi Data Lapangan Pesisir",
+      title: "Sub Lab Mekanika Tanah & Data Lapangan",
       description: "Pemetikan Data Kekuatan Struktur di Lapangan",
       image: image5,
     },
@@ -45,49 +40,88 @@ const LayananSection = () => {
   return (
     <section className="bg-light py-5">
       <div className="container">
+        {/* Section Title */}
         <div className="text-center mb-5">
-           <h2 className="fw-bold mb-2 text-black">Layanan Laboratorium</h2>
+          <h2 className="fw-bold text-black mb-3">Layanan Laboratorium</h2>
           <p className="lead text-muted">
-            Temukan layanan yang dapat membantu penelitian dan proyek Anda di bidang pesisir dan rekayasa pantai.
+            Temukan layanan yang mendukung penelitian & proyek Anda di bidang
+            pesisir, oseanografi, dan rekayasa pantai.
           </p>
         </div>
-        
+
+        {/* Services Grid */}
         <div className="row g-4 justify-content-center">
           {services.map((service, index) => (
-            <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-2">
-              <div className="card h-100 shadow-sm rounded-3">
-                <img src={service.image} className="card-img-top img-fluid" alt={service.title} />
-                <div className="card-body d-flex flex-column text-center">
-                  <h6 className="card-subtitle mb-2 text-muted small">{service.subtitle}</h6>
-                  <h5 className="card-title fw-bold">{service.description}</h5>
-                  <a href="#" className="btn mt-auto selengkapnya-btn">Selengkapnya</a>
+            <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+              <div className="card layanan-card h-100 shadow-sm border-0">
+                <div className="image-wrapper">
+                  <img
+                    src={service.image}
+                    className="card-img-top img-fluid"
+                    alt={service.title}
+                  />
+                </div>
+                <div className="card-body text-center d-flex flex-column">
+                  <h6 className="text-muted small">{service.title}</h6>
+                  <h5 className="fw-semibold">{service.description}</h5>
+                  <a href="#" className="btn mt-auto selengkapnya-btn">
+                    Selengkapnya
+                  </a>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
+        {/* More Info Button */}
         <div className="text-center mt-5">
-          <button className="btn btn-lg more-info-btn rounded-3">More Information</button>
+          <button className="btn btn-lg more-info-btn rounded-3 shadow-sm">
+            More Information
+          </button>
         </div>
       </div>
 
+      {/* Custom CSS */}
       <style jsx>{`
-        .card {
-          border: none;
+        .layanan-card {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .layanan-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .image-wrapper {
+          overflow: hidden;
+          max-height: 200px;
+        }
+        .image-wrapper img {
+          transition: transform 0.4s ease;
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+        .layanan-card:hover img {
+          transform: scale(1.1);
         }
         .selengkapnya-btn {
-          background-color: #A8A196;
+          background-color: #a8a196;
           color: white;
-          border: none;
+          font-weight: 500;
+          border-radius: 8px;
+          transition: background 0.3s ease;
         }
         .selengkapnya-btn:hover {
-          background-color: #8C847A;
+          background-color: #8c847a;
         }
         .more-info-btn {
-          background-color: #8E1616;
+          background-color: #8e1616;
           color: white;
           font-weight: bold;
+          padding: 12px 32px;
+          border: none;
+          transition: background 0.3s ease;
         }
         .more-info-btn:hover {
           background-color: #730303;

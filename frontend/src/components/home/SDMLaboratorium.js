@@ -1,7 +1,5 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-// Import 1 gambar saja
 import bgImage1 from "../../assets/home/sdm.jpeg";
 
 const SDMLaboratorium = () => {
@@ -12,28 +10,29 @@ const SDMLaboratorium = () => {
         backgroundImage: `url(${bgImage1})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        minHeight: "80vh",
+        minHeight: "90vh",
       }}
     >
-      {/* Overlay biar teks tetap kebaca */}
+      {/* Overlay gelap biar teks lebih kebaca */}
       <div className="overlay"></div>
 
       {/* Foreground Card */}
       <div className="container position-relative z-index-1 d-flex justify-content-center justify-content-lg-end align-items-center h-100">
-        <div className="card floating-card rounded-3 shadow-lg p-4">
+        <div className="card floating-card rounded-4 shadow-lg p-4 animate-fade-in">
           <div className="card-body">
-            <h3 className="card-title fw-bold mb-3">SDM Laboratorium</h3>
+            <h3 className="card-title fw-bold mb-3 text-uppercase">
+              SDM Laboratorium
+            </h3>
             <p className="card-text text-muted mb-4">
               Laboratorium Dinamika Pesisir dan Rekayasa Pantai didukung oleh 40
-              tenaga profesional dengan latar belakang pendidikan yang beragam,
+              tenaga profesional dengan latar belakang pendidikan beragam,
               mulai dari jenjang SLTA hingga Doktor (S3). Keberagaman ini
               menjadikan laboratorium mampu menggabungkan keahlian teknis
               lapangan dengan pemikiran akademik tingkat lanjut. Selain itu,
-              sejumlah staf juga sedang menempuh pendidikan lanjutan (S1, S2,
-              hingga S3) melalui program tugas belajar, sehingga kapasitas
-              keilmuan laboratorium terus berkembang dari waktu ke waktu.
+              sejumlah staf juga sedang menempuh pendidikan lanjutan sehingga
+              kapasitas keilmuan laboratorium terus berkembang.
             </p>
-            <button className="btn btn-outline-secondary rounded-3">
+            <button className="btn btn-custom rounded-3 px-4 py-2 fw-semibold">
               Lihat Detail
             </button>
           </div>
@@ -48,31 +47,65 @@ const SDMLaboratorium = () => {
           left: 0;
           width: 100%;
           height: 100%;
-          background: rgba(0, 0, 0, 0.4); /* gelapin background */
+          background: rgba(0, 0, 0, 0.55);
           z-index: 0;
         }
+
         .floating-card {
-          max-width: 500px;
-          background-color: rgba(255, 255, 255, 0.9);
-          backdrop-filter: blur(10px);
+          max-width: 520px;
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(12px);
+          border: none;
           z-index: 2;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .floating-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        }
+
         .card-title {
           color: #8e1616;
+          letter-spacing: 1px;
         }
-        .btn-outline-secondary {
-          border-color: #a8a196;
-          color: #a8a196;
+
+        .btn-custom {
+          background-color: #8e1616;
+          color: #fff;
+          border: none;
+          transition: all 0.3s ease;
         }
-        .btn-outline-secondary:hover {
-          background-color: #a8a196;
-          color: white;
+
+        .btn-custom:hover {
+          background-color: #a82323;
+          transform: scale(1.05);
         }
+
+        /* Animasi */
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fadeIn 1s ease-out;
+        }
+
+        /* Responsif */
         @media (max-width: 991.98px) {
           .floating-card {
-            position: static;
-            max-width: 90%;
+            max-width: 95%;
             margin-top: 2rem;
+            text-align: center;
+          }
+          .btn-custom {
+            width: 100%;
           }
         }
       `}</style>
@@ -81,3 +114,4 @@ const SDMLaboratorium = () => {
 };
 
 export default SDMLaboratorium;
+

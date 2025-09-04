@@ -12,70 +12,270 @@
   color: #0D0D0D;
 }
 
-/* HistoryTimeline Component */
+
+/* Hero Section Styling */
+.hero-section {
+  min-height: 70vh;
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+
+.hero-content {
+  padding-bottom: 10vh;
+}
+
+/* Warna aksen */
+.text-accent {
+  color: #e63946; /* merah aksen */
+}
+
+/* Animasi Fade-in Up */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s forwards;
+}
+.fade-in-up.delay-1 {
+  animation-delay: 0.3s;
+}
+.fade-in-up.delay-2 {
+  animation-delay: 0.6s;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .hero-content h2 {
+    font-size: 1.5rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+
+/* Custom.css */
+
+/* ===== Section Background ===== */
+.timeline-section {
+  background: linear-gradient(135deg, #fff, #f9f6f1);
+  position: relative;
+  overflow: hidden;
+}
+.timeline-section::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(234, 209, 150, 0.25); /* EAD196 transparan */
+  border-radius: 50%;
+  top: -100px;
+  right: -100px;
+}
+
+/* ===== Title ===== */
 .sejarah-title {
-  color: #730303;
+  color: #8E1616; /* Merah Tua */
+  position: relative;
+  padding-bottom: 10px;
 }
-.timeline {
-  height:400px; /* Atur ketinggian total timeline */
+.sejarah-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: #EAD196; /* Kuning Muda */
+  border-radius: 5px;
 }
-.timeline-line {
-  height: 0;
-  border-top: 3px dashed #730303;
+
+/* ===== Timeline Container ===== */
+.card-timeline-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+.card-timeline-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 70px;
+  right: 70px;
+  height: 2px;
+  background: linear-gradient(to right, #8E1616, #A8A196); /* Merah ke abu beige */
   z-index: 1;
 }
-.timeline-item {
+
+/* ===== Timeline Card ===== */
+.timeline-card {
+  background-color: #fff;
+  border: 1px solid #A8A196;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(168, 161, 150, 0.3);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 500px;
   z-index: 2;
-  padding-bottom: 2rem;
-  padding-top: 2rem;
+  animation: fadeIn 0.5s ease;
 }
-.timeline-item.top {
-  transform: translateY(-50%);
+.timeline-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(142, 22, 22, 0.3); /* bayangan merah tua */
 }
-.timeline-item.bottom {
-  transform: translateY(50%);
+.timeline-card .year-text {
+  color: #8E1616;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
 }
-.circle {
-  width: 20px;
-  height: 20px;
-  background: white;
-  border: 3px solid #730303;
-  z-index: 3;
-  left: 50%;
-  transform: translateX(-50%);
+.timeline-card p {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
 }
-.timeline-item.top .circle {
-  bottom: 0;
-}
-.timeline-item.bottom .circle {
-  top: 0;
-}
+
+/* ===== Highlight & Normal Boxes ===== */
 .highlight-box {
-  background-color: #8e1616;
-  color: #ead196;
+  background-color: #EAD196; /* Kuning muda */
+  border-color: #8E1616;
+}
+.highlight-box .year-text {
+  color: #8E1616;
 }
 .normal-box {
-  background-color: #ead196;
-  color: #8e1616;
+  background-color: #fdfdfd; /* Putih */
+  border-color: #A8A196;
 }
-.year-text {
-  font-weight: bold;
+
+/* ===== Navigation Buttons ===== */
+.card-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #8E1616; /* Merah Tua */
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 10px rgba(142, 22, 22, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  z-index: 3;
+}
+.card-nav-btn:hover {
+  background-color: #A8A196; /* abu beige */
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 15px rgba(168, 161, 150, 0.4);
+  color: #8E1616;
+}
+.prev-btn { left: 0; }
+.next-btn { right: 0; }
+
+/* ===== Indicator Dots ===== */
+.timeline-indicators .dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 6px;
+  background-color: #A8A196;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.timeline-indicators .dot.active {
+  background-color: #8E1616;
+  transform: scale(1.2);
+}
+.timeline-indicators .dot:hover {
+  background-color: #EAD196;
+}
+
+/* ===== Animation ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .card-timeline-container { padding: 0 30px; }
+  .timeline-card { min-height: 200px; padding: 20px; }
+  .timeline-card .year-text { font-size: 1.5rem; }
+  .timeline-card p { font-size: 0.9rem; }
+  .card-nav-btn { width: 40px; height: 40px; font-size: 1rem; }
+}
+@media (max-width: 576px) {
+  .card-timeline-container { padding: 0 20px; }
+  .card-nav-btn { width: 35px; height: 35px; font-size: 0.9rem; }
+  .sejarah-title { font-size: 2rem; }
 }
 
 /* Tugas Component */
 .custom-btn {
   background-color: #ead196;
-  color: #8e1616;
+  color: #a8a8a8;
   border-color: #ead196;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 .custom-btn:hover {
   background-color: #d1b87d;
   border-color: #d1b87d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 .text-danger {
   color: #8e1616 !important;
 }
 .custom-margin-top {
   margin-top: 100px; /* Jarak atas custom untuk section */
+}
+
+/* Tambahan responsif */
+.tugas-section h2 {
+  line-height: 1.3;
+}
+.tugas-img {
+  max-width: 90%;
+  transition: transform 0.4s ease;
+}
+.tugas-img:hover {
+  transform: scale(1.05);
+}
+
+/* Animasi fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s forwards;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

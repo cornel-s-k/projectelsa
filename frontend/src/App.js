@@ -1,4 +1,7 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// Halaman Utama
 import Header from "./components/home/Header";
 import Herosection from "./components/home/Herosection";
 import HistoryTimeline from "./components/home/HistoryTimeline";
@@ -15,7 +18,12 @@ import MitraKerjasama from "./components/home/MitraKerjasama";
 import Footer from "./components/home/Footer";
 import TimelineLayanan from "./components/home/TimelineLayanan";
 
-function App() {
+// Halaman About
+import About from "./components/about/about";
+
+import Fasilitas from "./components/fasilitas/fasilitas";
+
+function HomePage() {
   return (
     <div className="bg-white text-gray-800 font-sans antialiased">
       <Header />
@@ -28,10 +36,10 @@ function App() {
         <VideoSection />
         <LayananSection />
         <TimelineLayanan />
-         <DashboardElsa />
+        <DashboardElsa />
         <SDMLaboratorium />
         <HKPSection />
-         <TestimoniSection />
+        <TestimoniSection />
         <MitraKerjasama />
       </main>
       <Footer />
@@ -39,5 +47,18 @@ function App() {
   );
 }
 
-export default App;
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {/* Route untuk halaman utama */}
+        <Route path="/" element={<HomePage />} />
+        {/* Route untuk halaman About */}
+        <Route path="/about" element={<About />} />
+         <Route path="/fasilitas" element={<Fasilitas />} />
+      </Routes>
+    </Router>
+  );
+}
 
+export default App;

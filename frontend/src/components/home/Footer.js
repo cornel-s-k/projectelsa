@@ -17,21 +17,32 @@ function Footer() {
                 className="footer-logo me-2"
                 style={{ height: "50px" }}
               />
-              <h5 className="mb-0 fw-bold">BRIN</h5>
             </div>
             <p className="mb-1">labpantai@brin.go.id</p>
             <p className="mb-3">08119811586</p>
             <div>
-              <a href="#" className="btn btn-outline-light btn-sm me-2 rounded-circle">
+              <a
+                href="#"
+                className="btn btn-outline-light btn-sm me-2 rounded-circle"
+              >
                 <FaFacebookF />
               </a>
-              <a href="#" className="btn btn-outline-light btn-sm me-2 rounded-circle">
+              <a
+                href="#"
+                className="btn btn-outline-light btn-sm me-2 rounded-circle"
+              >
                 <FaInstagram />
               </a>
-              <a href="#" className="btn btn-outline-light btn-sm me-2 rounded-circle">
+              <a
+                href="#"
+                className="btn btn-outline-light btn-sm me-2 rounded-circle"
+              >
                 <FaXing />
               </a>
-              <a href="#" className="btn btn-outline-light btn-sm rounded-circle">
+              <a
+                href="#"
+                className="btn btn-outline-light btn-sm rounded-circle"
+              >
                 <FaLinkedinIn />
               </a>
             </div>
@@ -41,11 +52,46 @@ function Footer() {
           <div className="col-md-3 mb-4">
             <h6 className="fw-bold text-uppercase">Tautan Referensi</h6>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-white text-decoration-none">Home</a></li>
-              <li><a href="#" className="text-white text-decoration-none">Tentang</a></li>
-              <li><a href="#" className="text-white text-decoration-none">Fasilitas</a></li>
-              <li><a href="#" className="text-white text-decoration-none">Layanan</a></li>
-              <li><a href="#" className="text-white text-decoration-none">Kontaks</a></li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                >
+                  Tentang
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                >
+                  Fasilitas
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                >
+                  Layanan
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                >
+                  Kontak
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -53,36 +99,44 @@ function Footer() {
           <div className="col-md-2 mb-4">
             <h6 className="fw-bold text-uppercase">Layanan Untuk</h6>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-white text-decoration-none">Pelajar</a></li>
-              <li><a href="#" className="text-white text-decoration-none">Mahasiswa</a></li>
-              <li><a href="#" className="text-white text-decoration-none">Sekolah</a></li>
-              <li><a href="#" className="text-white text-decoration-none">Universitas</a></li>
+              <li>Pelajar</li>
+              <li>Mahasiswa</li>
+              <li>Sekolah</li>
+              <li>Universitas</li>
             </ul>
           </div>
 
-          {/* Informasi & Subscribe */}
+          {/* Informasi */}
           <div className="col-md-4 mb-4">
-            <div className="row">
-              <div className="col-md-6">
-                <h6 className="fw-bold text-uppercase">Informasi</h6>
-                <ul className="list-unstyled">
-                  <li><a href="#" className="text-white text-decoration-none">FAQ</a></li>
-                  <li><a href="#" className="text-white text-decoration-none">HKP</a></li>
-                  <li><a href="#" className="text-white text-decoration-none">Ulasan</a></li>
-                </ul>
-              </div>
-              <div className="col-md-6">
-                <h6 className="fw-bold text-uppercase">Subscribe to get updates</h6>
-                <p className="small">Silahkan mendaftarkan email anda untuk mendapatkan informasi lebih cepat</p>
-                <form>
-                  <div className="mb-2">
-                    <label htmlFor="emailInput" className="form-label small">Email</label>
-                    <input type="email" className="form-control form-control-sm" id="emailInput" />
-                  </div>
-                  <button type="submit" className="btn btn-danger btn-sm w-100">Subscribe</button>
-                </form>
-              </div>
-            </div>
+            <h6 className="fw-bold text-uppercase">Informasi</h6>
+            <ul className="list-unstyled">
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                >
+                  FAQ
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                >
+                  HKP
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://elsa.brin.go.id/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                >
+                  Info Detail
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -91,11 +145,21 @@ function Footer() {
 
         {/* Copyright */}
         <div className="text-center small">
-          © {new Date().getFullYear()} BRIN Copyright
+          © {new Date().getFullYear()} BRIN — All Rights Reserved
         </div>
       </div>
+
+      {/* Extra CSS */}
+      <style jsx>{`
+        .footer-link:hover {
+          color: #f44336 !important; /* merah saat hover */
+          padding-left: 4px;
+          transition: all 0.3s ease;
+        }
+      `}</style>
     </footer>
   );
 }
 
 export default Footer;
+

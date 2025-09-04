@@ -1,102 +1,119 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import fasilitas1 from "../../assets/home/fasil1.jpeg";
 import fasilitas2 from "../../assets/home/fasil2.jpeg";
 import fasilitas3 from "../../assets/home/fasil3.jpeg";
 
 const FasilitasSection = () => {
+  // Data fasilitas dalam array
+  const fasilitasList = [
+    {
+      id: 1,
+      title: "Uji Model Fisik Dinamika Pantai",
+      image: fasilitas1,
+      status: "Available",
+      link: "/fasilitas/1",
+    },
+    {
+      id: 2,
+      title: "Simulasi Hidro-Oseanografi & Interaksi Air Struktur",
+      image: fasilitas2,
+      status: "Available",
+      link: "/fasilitas/2",
+    },
+    {
+      id: 3,
+      title: "Mekanika Tanah dan Akuisisi Data Lapangan Pesisir",
+      image: fasilitas3,
+      status: "Available",
+      link: "/fasilitas/3",
+    },
+  ];
+
   return (
     <section className="bg-white py-5">
       <div className="container">
+        {/* Judul */}
         <div className="text-center mb-5">
-          <h2 className="fw-bold mb-2 text-black ">Fasilitas</h2>
+          <h2 className="fw-bold mb-2 text-black">Fasilitas</h2>
           <p className="lead text-muted">
-            Fasilitas modern dengan standar tinggi untuk mendukung riset dan layanan terbaik.
+            Fasilitas modern dengan standar tinggi untuk mendukung riset dan
+            layanan terbaik.
           </p>
         </div>
-        
-        <div className="row g-4 justify-content-center">
-          {/* Card 1: Uji Model Fisik */}
-          <div className="col-md-6 col-lg-4 d-flex">
-            <div className="card h-100 shadow-sm rounded-3 fasilitas-card-custom">
-              <img
-                src={fasilitas1}
-                className="card-img-top img-fluid rounded-top"
-                alt="Uji Model Fisik"
-              />
-              <div className="card-body d-flex flex-column">
-                <span className="text-success fw-bold small mb-2">Available</span>
-                <h5 className="card-title fw-bold mb-2">Uji Model Fisik Dinamika Pantai</h5>
-                <a href="#" className="btn mt-auto details-btn">Details</a>
-              </div>
-            </div>
-          </div>
 
-          {/* Card 2: Simulasi */}
-          <div className="col-md-6 col-lg-4 d-flex">
-            <div className="card h-100 shadow-sm rounded-3 fasilitas-card-custom">
-              <img
-                src={fasilitas2}
-                className="card-img-top img-fluid rounded-top"
-                alt="Simulasi Hidro-Oseanografi"
-              />
-              <div className="card-body d-flex flex-column">
-                <span className="text-success fw-bold small mb-2">Available</span>
-                <h5 className="card-title fw-bold mb-2">
-                  Simulasi Hidro-Oseanografi & Interaksi Air Struktur
-                </h5>
-                <a href="#" className="btn mt-auto details-btn">Details</a>
+        {/* Card grid */}
+        <div className="row g-4 justify-content-center">
+          {fasilitasList.map((item) => (
+            <div key={item.id} className="col-sm-10 col-md-6 col-lg-4 d-flex">
+              <div className="card fasilitas-card shadow-sm rounded-4 w-100">
+                <img
+                  src={item.image}
+                  className="card-img-top"
+                  alt={item.title}
+                />
+                <div className="card-body d-flex flex-column">
+                  <span className="status-label">{item.status}</span>
+                  <h5 className="card-title">{item.title}</h5>
+                  <Link to={item.link} className="btn mt-auto details-btn">
+                    Details
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-          
-          {/* Card 3: Mekanika Tanah */}
-          <div className="col-md-6 col-lg-4 d-flex">
-            <div className="card h-100 shadow-sm rounded-3 fasilitas-card-custom">
-              <img
-                src={fasilitas3}
-                className="card-img-top img-fluid rounded-top"
-                alt="Mekanika Tanah"
-              />
-              <div className="card-body d-flex flex-column">
-                <span className="text-success fw-bold small mb-2">Available</span>
-                <h5 className="card-title fw-bold mb-2">
-                  Mekanika Tanah dan Akuisisi Data Lapangan Pesisir
-                </h5>
-                <a href="#" className="btn mt-auto details-btn">Details</a>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
+
+      {/* Custom styling */}
       <style jsx>{`
-        .fasilitas-card-custom {
-          background-color: #EFEFEF;
+        .fasilitas-card {
+          background-color: #efefef;
           border: none;
+          min-height: 400px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .details-btn {
-          background-color: #A8A196;
-          color: white;
-          border: none;
-        }
-        .details-btn:hover {
-          background-color: #8C847A;
-          color: white;
-        }
-        .card-title {
-          color: #8E1616;
-        }
-        .text-success {
-          color: #4C9F4E !important;
+        .fasilitas-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         .card-img-top {
-          border-radius: 0.375rem 0.375rem 0 0 !important;
-          height: 200px;
+          border-radius: 0.75rem 0.75rem 0 0 !important;
+          height: 180px;
           object-fit: cover;
         }
-        .card {
-          overflow: hidden;
-          min-height: 450px; /* Tambahkan baris ini untuk memanjangkan kotak */
+        .card-title {
+          color: #8e1616;
+          font-weight: bold;
+          font-size: 1rem;
+        }
+        .status-label {
+          color: #4c9f4e;
+          font-weight: bold;
+          font-size: 0.85rem;
+          margin-bottom: 6px;
+        }
+        .details-btn {
+          background-color: #a8a196;
+          color: white;
+          font-weight: 500;
+          border: none;
+          padding: 0.5rem 1.2rem;
+          border-radius: 10px;
+          transition: background-color 0.3s ease;
+        }
+        .details-btn:hover {
+          background-color: #8c847a;
+          color: white;
+        }
+        @media (max-width: 576px) {
+          .fasilitas-card {
+            min-height: 360px;
+          }
+          .card-img-top {
+            height: 150px;
+          }
         }
       `}</style>
     </section>

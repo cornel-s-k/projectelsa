@@ -1,5 +1,11 @@
-import React from "react";
-import "../../Custom.css"; // Import file CSS kustom
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+  faFlag,
+} from "@fortawesome/free-solid-svg-icons";
+import "../../Custom.css"; // Import CSS custom
 
 const timelineData = [
   {
@@ -35,36 +41,64 @@ const timelineData = [
 ];
 
 const HistoryTimeline = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? timelineData.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === timelineData.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const currentItem = timelineData[currentIndex];
+
   return (
-    <section className="bg-light py-5">
+    <section className="timeline-section py-5">
       <div className="container">
         <h2 className="text-center fw-bold mb-5 sejarah-title">Sejarah</h2>
 
-        <div className="timeline d-flex justify-content-between align-items-center position-relative">
-          {/* Garis horizontal putus-putus */}
-          <div className="timeline-line position-absolute top-50 start-0 w-100"></div>
+        <div className="card-timeline-container position-relative d-flex align-items-center justify-content-center">
+          <button
+            className="card-nav-btn prev-btn"
+            onClick={handlePrev}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
 
-          {timelineData.map((item, idx) => (
-            <div
-              key={idx}
-              className={`timeline-item text-center position-relative ${
-                idx % 2 === 0 ? "top" : "bottom"
-              }`}
-              style={{ flexBasis: "18%" }}
-            >
-              {/* Kotak */}
-              <div
-                className={`p-3 rounded shadow ${
-                  item.type === "highlight" ? "highlight-box" : "normal-box"
-                }`}
-              >
-                <h5 className="fw-bold year-text">{item.year}</h5>
-                <p className="mb-0 small">{item.description}</p>
-              </div>
+          <div
+            key={currentItem.year}
+            className={`timeline-card p-4 rounded shadow ${
+              currentItem.type === "highlight" ? "highlight-box" : "normal-box"
+            }`}
+          >
+            <h5 className="fw-bold year-text mb-3">
+            <FontAwesomeIcon icon={faFlag} className="me-2" style={{ color: "#8e1616" }} />
+              {currentItem.year}
+            </h5>
+            <p className="mb-0">{currentItem.description}</p>
+          </div>
 
-              {/* Titik lingkaran */}
-              <div className="circle rounded-circle position-absolute start-50 translate-middle"></div>
-            </div>
+          <button
+            className="card-nav-btn next-btn"
+            onClick={handleNext}
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        </div>
+
+        {/* Indicator dots */}
+        <div className="timeline-indicators mt-4 d-flex justify-content-center">
+          {timelineData.map((_, index) => (
+            <span
+              key={index}
+              className={`dot ${index === currentIndex ? "active" : ""}`}
+              onClick={() => setCurrentIndex(index)}
+            ></span>
           ))}
         </div>
       </div>
