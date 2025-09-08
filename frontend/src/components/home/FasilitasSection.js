@@ -1,3 +1,4 @@
+// FasilitasSection.js
 import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -32,7 +33,8 @@ const FasilitasSection = () => {
   ];
 
   return (
-    <section className="bg-white py-5">
+    // Add the id="fasilitas-section" here
+    <section id="fasilitas-section" className="bg-white py-5">
       <div className="container">
         {/* Judul */}
         <div className="text-center mb-5">

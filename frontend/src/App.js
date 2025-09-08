@@ -21,8 +21,16 @@ import TimelineLayanan from "./components/home/TimelineLayanan";
 // Halaman About
 import About from "./components/about/about";
 
-import Fasilitas from "./components/fasilitas/fasilitas";
+// Halaman Fasilitas Detail
+import FasilitasDetail1 from "./components/fasilitas/FasilitasDetail1";
+import FasilitasDetail2 from "./components/fasilitas/FasilitasDetail2";
+import FasilitasDetail3 from "./components/fasilitas/FasilitasDetail3";
+import HKPLMFDP from "./components/hkp/HKPLMFDP";
+import HKPLSHIAS from "./components/hkp/HKPLSHIAS";
+import HKPLMTADLP from "./components/hkp/HKPLMTADLP";
+import FAQ from "./components/faq/FAQ";
 
+// 🔹 Halaman utama (HomePage)
 function HomePage() {
   return (
     <div className="bg-white text-gray-800 font-sans antialiased">
@@ -47,15 +55,35 @@ function HomePage() {
   );
 }
 
+// 🔹 Router utama (App)
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Route untuk halaman utama */}
+        {/* Halaman utama */}
         <Route path="/" element={<HomePage />} />
-        {/* Route untuk halaman About */}
+
+        {/* Halaman About */}
         <Route path="/about" element={<About />} />
-         <Route path="/fasilitas" element={<Fasilitas />} />
+        
+        {/* Hapus rute ini karena sudah dihandle dengan tag <a> di Header */}
+        {/* <Route path="/#fasilitas-section" element={<FasilitasSection />} /> */}
+
+        {/* Hapus rute ini karena sudah dihandle dengan tag <a> di Header */}
+        {/* <Route path="/#hkp-section" element={<HKPSection />} /> */}
+
+        {/* PERBAIKI RUTE INI: Hapus tanda pagar (#) */}
+        <Route path="/faq" element={<FAQ />} />
+
+        {/* Halaman Detail Fasilitas */}
+        <Route path="/fasilitas/1" element={<FasilitasDetail1 />} />
+        <Route path="/fasilitas/2" element={<FasilitasDetail2 />} />
+        <Route path="/fasilitas/3" element={<FasilitasDetail3 />} />
+
+        {/* Halaman Detail HKP */}
+        <Route path="/hkp/HKPL-MFDP" element={<HKPLMFDP />} />
+        <Route path="/hkp/HKPL-SHIAS" element={<HKPLSHIAS/>} />
+        <Route path="/hkp/HKPL-MTADLP" element={< HKPLMTADLP />} />
       </Routes>
     </Router>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { Link } from "react-router-dom";
 // Import your images here
 import hkp1 from "../../assets/home/mfdp.png";
 import hkp2 from "../../assets/home/SHIAS.jpeg";
@@ -13,23 +13,26 @@ const HKPSection = () => {
       title:
         "Hak dan Kewajiban Pengguna Layanan Model Fisik Dinamika Pantai",
       image: hkp1,
+      link: "/HKPL-MFDP",
     },
     {
       code: "HKPL-SHIAS",
       title:
         "Hak dan Kewajiban Pengguna Layanan Simulasi Hidro-Oseanografi & Interaksi Air - Struktur",
       image: hkp2,
+      link: "/HKPL-SHIAS",
     },
     {
       code: "HKPL-MTADLP",
       title:
         "Hak dan Kewajiban Pengguna Layanan Mekanika Tanah dan Akuisisi Data Lapangan Pesisir",
       image: hkp3,
+      link: "/HKPL-MTADLP",
     },
   ];
 
   return (
-    <section className="py-5 bg-light">
+    <section id="hkp-section" className="py-5 bg-light">
       <div className="container">
         {/* Judul Section */}
         <div className="text-center mb-5">
@@ -67,12 +70,9 @@ const HKPSection = () => {
                   <p className="card-text text-muted small flex-grow-1">
                     {item.title}
                   </p>
-                  <a
-                    href="#"
-                    className="btn details-btn rounded-pill mt-auto shadow-sm"
-                  >
-                    Lihat Detail
-                  </a>
+                 <Link to={item.link} className="btn mt-auto details-btn">
+                            Details
+                   </Link>
                 </div>
               </div>
             </div>

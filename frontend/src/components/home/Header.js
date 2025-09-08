@@ -1,9 +1,11 @@
+// Header.js
 import React from "react";
-import { Link } from "react-router-dom"; // ⬅️ Tambah ini
+// Don't use 'Link' for the Fasilitas link
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js"; // penting untuk toggler
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import logo from "../../assets/home/logo.png";
-import "../../Custom.css"; // Import file CSS kustom
+import "../../Custom.css";
 
 const Header = () => {
   return (
@@ -42,20 +44,19 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/fasilitas">
+                {/* Change this to an anchor tag for internal scrolling */}
+                <a className="nav-link" href="/#fasilitas-section">
                   Fasilitas
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/layanan">
                   Layanan
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/hkp">
+                <a className="nav-link" href="/#hkp-section">
                   HKP
-                </Link>
-              </li>
+                </a>
               <li className="nav-item">
                 <Link className="nav-link" to="/survey">
                   Survey

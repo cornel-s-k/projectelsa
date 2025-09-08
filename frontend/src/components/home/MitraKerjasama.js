@@ -5,6 +5,7 @@ const partners = [
   { logo: "https://www.sig.id/storage/downloads/logo-sig/sig-latar-putih.png", name: "Mitra 2" },
   { logo: "https://portal.dephub.go.id/themes/new2020/assets/images/logo-large.png", name: "Mitra 3" },
   { logo: "https://mm.feb.undip.ac.id/wp-content/uploads/2021/11/universitas-diponegoro-logo.png", name: "Mitra 4" },
+  { logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXG2TNiJkWQFvLsMJOUvVKs6EazGyhcLuhOQ&s", name: "Mitra 5" },
 ];
 
 const MitraKerjasama = () => {

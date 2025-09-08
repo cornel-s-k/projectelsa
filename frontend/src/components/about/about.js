@@ -3,6 +3,7 @@ import "../../Custom.css";
 import Header from "../home/Header";
 import Footer from "../home/Footer";
 import pimpinan from "../../assets/about/pimpinan.jpg";
+import { Link } from "react-router-dom"; 
 
 const About = () => {
   return (
@@ -20,11 +21,13 @@ const About = () => {
               penting dalam mendukung penelitian, pendidikan, dan pengabdian
               masyarakat. Fungsi utama laboratorium adalah:
             </p>
-            <ul className="list-unstyled text-muted">
-              <li>✔️ Melaksanakan riset di bidang pesisir dan pantai</li>
-              <li>✔️ Memberikan layanan pengujian dan analisis data</li>
-              <li>✔️ Menyediakan solusi rekayasa pantai yang berkelanjutan</li>
-              <li>✔️ Menjalin kolaborasi dengan akademisi, industri, dan pemerintah</li>
+            <ul className="list-unstyled text-muted text-start d-inline-block">
+              <li>✅ Memfasilitasi kegiatan terkait Dinamika Pesisir dan Rekayasa Pantai</li>
+              <li>✅ Pengembangan riset & metodologi di bidang pesisir</li>
+              <li>✅ Posisi strategis laboratorium:</li>
+              <li>1. Keterlibatan Proyek Strategis Nasional Tanggul Laut</li>
+              <li>2. Mendukung infrastruktur maritim & sumber daya pesisir</li>
+              <li>3. Mendukung Program Strategi BRIN → Pusat Inovasi Maritim</li>
             </ul>
           </div>
 
@@ -42,7 +45,7 @@ const About = () => {
               <img
                 src="https://via.placeholder.com/800x400"
                 alt="Struktur Organisasi"
-                className="img-fluid rounded shadow"
+                className="img-fluid rounded shadow hover-zoom"
               />
             </div>
           </div>
@@ -57,51 +60,33 @@ const About = () => {
               Pesisir dan Rekayasa Pantai.
             </p>
             <div className="row justify-content-center">
-              {/* Card 1 */}
-              <div className="col-md-4 mb-4">
-                <div className="card h-100 shadow border-0">
-                  <img
-                    src={pimpinan}
-                    className="card-img-top"
-                    alt="Kepala Laboratorium"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title fw-bold">Dr. Andi Pratama</h5>
-                    <p className="card-text text-muted">Kepala Laboratorium</p>
+              {[
+                { nama: "Dr. Andi Pratama", jabatan: "Kepala Laboratorium" },
+                { nama: "Ir. Siti Rahma, M.T.", jabatan: "Wakil Kepala" },
+                { nama: "Dr. Budi Santoso", jabatan: "Koordinator Penelitian" },
+              ].map((item, index) => (
+                <div key={index} className="col-md-4 mb-4">
+                  <div className="card h-100 shadow border-0 hover-lift">
+                    <img
+                      src={pimpinan}
+                      className="card-img-top"
+                      alt={item.jabatan}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title fw-bold">{item.nama}</h5>
+                      <p className="card-text text-muted">{item.jabatan}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Card 2 */}
-              <div className="col-md-4 mb-4">
-                <div className="card h-100 shadow border-0">
-                  <img
-                    src={pimpinan}
-                    className="card-img-top"
-                    alt="Wakil Kepala"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title fw-bold">Ir. Siti Rahma, M.T.</h5>
-                    <p className="card-text text-muted">Wakil Kepala</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3 */}
-              <div className="col-md-4 mb-4">
-                <div className="card h-100 shadow border-0">
-                  <img
-                    src={pimpinan}
-                    className="card-img-top"
-                    alt="Koordinator Penelitian"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title fw-bold">Dr. Budi Santoso</h5>
-                    <p className="card-text text-muted">Koordinator Penelitian</p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
+          </div>
+
+          {/* Tombol ke Home */}
+          <div className="text-center mt-5">
+            <Link to="/" className="btn btn-danger px-4 py-2 fw-bold shadow">
+              ⬅ Kembali ke Home
+            </Link>
           </div>
         </div>
       </section>
