@@ -1,6 +1,7 @@
 import React from "react";
 import brinLogo from "../../assets/home/logo.png";
 import { FaFacebookF, FaInstagram, FaXing, FaLinkedinIn } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -53,41 +54,29 @@ function Footer() {
             <h6 className="fw-bold text-uppercase">Tautan Referensi</h6>
             <ul className="list-unstyled">
               <li>
-                <a
-                  href="#"
-                  className="text-white text-decoration-none d-block mb-1 footer-link"
-                >
+                <Link className="nav-link footer-link" to="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-white text-decoration-none d-block mb-1 footer-link"
-                >
+                <Link className="nav-link footer-link" to="/about">
                   Tentang
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-white text-decoration-none d-block mb-1 footer-link"
-                >
+                <a className="nav-link footer-link" href="/#fasilitas-section">
                   Fasilitas
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-white text-decoration-none d-block mb-1 footer-link"
-                >
+                <Link className="nav-link footer-link" to="/layanan">
                   Layanan
-                </a>
+                </Link>
               </li>
               <li>
                 <a
                   href="#"
-                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                  className="nav-link footer-link"
                 >
                   Kontak
                 </a>
@@ -111,18 +100,12 @@ function Footer() {
             <h6 className="fw-bold text-uppercase">Informasi</h6>
             <ul className="list-unstyled">
               <li>
-                <a
-                  href="#"
-                  className="text-white text-decoration-none d-block mb-1 footer-link"
-                >
+                <Link className="nav-link footer-link" to="/faq">
                   FAQ
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-white text-decoration-none d-block mb-1 footer-link"
-                >
+                <a className="nav-link footer-link" href="/#hkp-section">
                   HKP
                 </a>
               </li>
@@ -131,7 +114,7 @@ function Footer() {
                   href="https://elsa.brin.go.id/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white text-decoration-none d-block mb-1 footer-link"
+                  className="nav-link footer-link"
                 >
                   Info Detail
                 </a>
@@ -151,10 +134,14 @@ function Footer() {
 
       {/* Extra CSS */}
       <style jsx>{`
+        .footer-link {
+          transition: all 0.3s ease;
+          color: white; /* Ensure base color is white */
+          text-decoration: none; /* Remove default underline */
+        }
         .footer-link:hover {
           color: #f44336 !important; /* merah saat hover */
           padding-left: 4px;
-          transition: all 0.3s ease;
         }
       `}</style>
     </footer>
@@ -162,4 +149,3 @@ function Footer() {
 }
 
 export default Footer;
-

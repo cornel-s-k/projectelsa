@@ -56,14 +56,13 @@ const About = () => {
               Pimpinan <span className="text-danger">Laboratorium</span>
             </h2>
             <p className="lead text-muted mb-4">
-              Berikut adalah jajaran pimpinan yang mengelola Laboratorium Dinamika
-              Pesisir dan Rekayasa Pantai.
+              Data pimpinan masih dalam perbaikan. Berikut adalah placeholder sementara.
             </p>
             <div className="row justify-content-center">
               {[
-                { nama: "Dr. Andi Pratama", jabatan: "Kepala Laboratorium" },
-                { nama: "Ir. Siti Rahma, M.T.", jabatan: "Wakil Kepala" },
-                { nama: "Dr. Budi Santoso", jabatan: "Koordinator Penelitian" },
+                { nama: "Nama Pimpinan (Dummy)", jabatan: "Jabatan - Dalam Perbaikan" },
+                { nama: "Nama Pimpinan (Dummy)", jabatan: "Jabatan - Dalam Perbaikan" },
+                { nama: "Nama Pimpinan (Dummy)", jabatan: "Jabatan - Dalam Perbaikan" },
               ].map((item, index) => (
                 <div key={index} className="col-md-4 mb-4">
                   <div className="card h-100 shadow border-0 hover-lift">

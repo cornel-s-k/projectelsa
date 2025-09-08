@@ -1,3 +1,5 @@
+// src/components/home/HKPSection.js
+
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
@@ -13,21 +15,24 @@ const HKPSection = () => {
       title:
         "Hak dan Kewajiban Pengguna Layanan Model Fisik Dinamika Pantai",
       image: hkp1,
-      link: "/HKPL-MFDP",
+      // 1. Tambahkan '/hkp' ke link
+      link: "/hkp/HKPL-MFDP", 
     },
     {
       code: "HKPL-SHIAS",
       title:
         "Hak dan Kewajiban Pengguna Layanan Simulasi Hidro-Oseanografi & Interaksi Air - Struktur",
       image: hkp2,
-      link: "/HKPL-SHIAS",
+      // 2. Tambahkan '/hkp' ke link
+      link: "/hkp/HKPL-SHIAS", 
     },
     {
       code: "HKPL-MTADLP",
       title:
         "Hak dan Kewajiban Pengguna Layanan Mekanika Tanah dan Akuisisi Data Lapangan Pesisir",
       image: hkp3,
-      link: "/HKPL-MTADLP",
+      // 3. Tambahkan '/hkp' ke link
+      link: "/hkp/HKPL-MTADLP", 
     },
   ];
 
@@ -61,7 +66,7 @@ const HKPSection = () => {
                     alt={item.title}
                   />
                   <div className="card-overlay d-flex align-items-center justify-content-center">
-                    <span className="overlay-text">Klik untuk lihat detail</span>
+                    <span className="overlay-text">Klik details</span>
                   </div>
                 </div>
 

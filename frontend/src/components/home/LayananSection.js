@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 // Import your images here
 import image1 from "../../assets/home/3d.jpeg";
@@ -75,9 +76,10 @@ const LayananSection = () => {
 
         {/* More Info Button */}
         <div className="text-center mt-5">
-          <button className="btn btn-lg more-info-btn rounded-3 shadow-sm">
+          <Link to="/layanan"
+            className="btn btn-lg more-info-btn rounded-3 shadow-sm">
             More Information
-          </button>
+          </Link>
         </div>
       </div>
 

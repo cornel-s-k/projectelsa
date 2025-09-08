@@ -1,3 +1,5 @@
+// src/App.js
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -29,6 +31,8 @@ import HKPLMFDP from "./components/hkp/HKPLMFDP";
 import HKPLSHIAS from "./components/hkp/HKPLSHIAS";
 import HKPLMTADLP from "./components/hkp/HKPLMTADLP";
 import FAQ from "./components/faq/FAQ";
+import LayananPage from "./components/layanan/layananPage"; // Tambahkan impor ini
+import Survey from "./components/survey/survey";
 
 // 🔹 Halaman utama (HomePage)
 function HomePage() {
@@ -65,15 +69,15 @@ function App() {
 
         {/* Halaman About */}
         <Route path="/about" element={<About />} />
-        
-        {/* Hapus rute ini karena sudah dihandle dengan tag <a> di Header */}
-        {/* <Route path="/#fasilitas-section" element={<FasilitasSection />} /> */}
 
-        {/* Hapus rute ini karena sudah dihandle dengan tag <a> di Header */}
-        {/* <Route path="/#hkp-section" element={<HKPSection />} /> */}
+        {/* halaman layanan */}
+        <Route path="/layanan" element={<LayananPage />} />
 
-        {/* PERBAIKI RUTE INI: Hapus tanda pagar (#) */}
+        {/* halaman faq */}
         <Route path="/faq" element={<FAQ />} />
+
+        {/* halaman survey */}
+        <Route path="/survey" element={<Survey />} />
 
         {/* Halaman Detail Fasilitas */}
         <Route path="/fasilitas/1" element={<FasilitasDetail1 />} />
