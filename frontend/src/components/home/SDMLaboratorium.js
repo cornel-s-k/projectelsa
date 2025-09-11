@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import bgImage1 from "../../assets/home/sdm.jpeg";
+import { Link } from "react-router-dom";
 
 const SDMLaboratorium = () => {
   return (
@@ -32,9 +33,10 @@ const SDMLaboratorium = () => {
               sejumlah staf juga sedang menempuh pendidikan lanjutan sehingga
               kapasitas keilmuan laboratorium terus berkembang.
             </p>
-            <button className="btn btn-custom rounded-3 px-4 py-2 fw-semibold">
-              Lihat Detail
-            </button>
+            <Link to="/sdm"
+              className="btn btn-primary btn-lg rounded-3 shadow custom-btn">
+                Lihat Detail
+              </Link>
           </div>
         </div>
       </div>

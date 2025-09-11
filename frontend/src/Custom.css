@@ -25,6 +25,21 @@
   );
 }
 
+/* Perbaikan kontras teks Hero Section */
+.hero-section h1,
+.hero-section h2,
+.hero-section p {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Overlay lebih gelap supaya teks putih lebih jelas */
+.hero-overlay {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.3)
+  );
+}
+
 
 .hero-content {
   padding-bottom: 10vh;
@@ -191,7 +206,7 @@
   background-color: #A8A196; /* abu beige */
   transform: translateY(-50%) scale(1.05);
   box-shadow: 0 4px 15px rgba(168, 161, 150, 0.4);
-  color: #8E1616;
+  color: #dd1b1b;
 }
 .prev-btn { left: 0; }
 .next-btn { right: 0; }

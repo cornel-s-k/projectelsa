@@ -19,7 +19,7 @@ const Herosection = () => {
 
       {/* Content */}
       <div className="container position-relative hero-content">
-        <h1 className="fw-bold display-4 mb-2 fade-in-up">
+        <h1 className="fw-bold display-4 mb-2 fade-in-up text-accent">
           Dashboard Layanan
         </h1>
         <h2 className="fw-bold display-5 fade-in-up delay-1">

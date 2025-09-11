@@ -50,10 +50,15 @@ const Header = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/layanan">
-                  Layanan
-                </Link>
-              </li>
+  <a
+    className="nav-link"
+    href="https://elsa.brin.go.id/layanan/perlokasi/KST%20Serpong%20(Bacharuddin%20Jusuf%20Habibie)?lokasi=KS+Mlati+%28Subandono+Diposaptono%29&keywords="
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Layanan
+  </a>
+</li>
                 <a className="nav-link" href="/#hkp-section">
                   HKP
                 </a>

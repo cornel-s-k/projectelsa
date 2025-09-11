@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithCustomToken, signInAnonymously } from 'firebase/auth';
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./survey.css"; // We will create this file for custom styles
-import Header from "../home/Header";
-import Footer from "../home/Footer";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
+// Ambil konfigurasi dari environment variable (.env)
+const firebaseConfig = JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG);
+const appId = process.env.REACT_APP_APP_ID;
+const initialAuthToken = process.env.REACT_APP_INITIAL_AUTH_TOKEN || '';
 
 const Survey = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    institution: "",
-    serviceType: "",
-    otherService: "",
+    name: '',
+    email: '',
+    institution: '',
+    serviceType: '',
+    otherService: '',
     easeOfAccess: 0,
     waitingTime: 0,
     staffProfessionalism: 0,
@@ -20,10 +25,69 @@ const Survey = () => {
     facilityComfort: 0,
     security: 0,
     overallSatisfaction: 0,
-    futureHopes: "",
-    improvementSuggestions: "",
+    futureHopes: '',
+    improvementSuggestions: '',
   });
 
+  const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
+  const [viewMode, setViewMode] = useState('form');
+  const [surveyResults, setSurveyResults] = useState([]);
+  const [isAuthReady, setIsAuthReady] = useState(false);
+
+  // Inisialisasi Firebase
+  useEffect(() => {
+    const setupFirebase = async () => {
+      try {
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        if (initialAuthToken) {
+          await signInWithCustomToken(auth, initialAuthToken);
+        } else {
+          await signInAnonymously(auth);
+        }
+
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          setUserId(currentUser.uid);
+        } else {
+          setUserId(crypto.randomUUID());
+        }
+        setIsAuthReady(true);
+      } catch (error) {
+        console.error('Firebase initialization or authentication failed:', error);
+        setStatusMessage({ type: 'error', text: 'Gagal menghubungkan ke database.' });
+        setIsAuthReady(false);
+      }
+    };
+
+    setupFirebase();
+  }, []);
+
+  // Fetch hasil survei
+  useEffect(() => {
+    if (viewMode === 'results' && isAuthReady) {
+      fetchSurveyResults();
+    }
+  }, [viewMode, isAuthReady, userId]);
+
+  const fetchSurveyResults = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/get-results?userId=' + userId);
+      if (!response.ok) {
+        throw new Error('Gagal mengambil data dari server.');
+      }
+      const data = await response.json();
+      setSurveyResults(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setStatusMessage({ type: 'error', text: 'Gagal memuat data hasil survei.' });
+    }
+  };
+
+  // Handle input form
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -40,260 +104,312 @@ const Survey = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  // Submit form
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the formData to a backend server
-    console.log("Form submitted with data:", formData);
-    alert("Terima kasih atas masukan Anda!");
-    // Reset form after submission
-    setFormData({
-      name: "",
-      email: "",
-      institution: "",
-      serviceType: "",
-      otherService: "",
-      easeOfAccess: 0,
-      waitingTime: 0,
-      staffProfessionalism: 0,
-      serviceQuality: 0,
-      infoClarity: 0,
-      resultsAccess: 0,
-      facilityComfort: 0,
-      security: 0,
-      overallSatisfaction: 0,
-      futureHopes: "",
-      improvementSuggestions: "",
-    });
-  };
+    if (!userId) {
+      setStatusMessage({ type: 'error', text: 'Autentikasi belum siap. Mohon tunggu sebentar.' });
+      return;
+    }
 
-  return (
-    <div className="bg-light survey-page">
-      <Header />
-      <div className="container py-5">
-        <div className="text-center mb-5">
-          <h1 className="fw-bold mb-3 text-dark">
-            Reviu Layanan Laboratorium
-          </h1>
-          <p className="lead text-muted">
-            Kami ingin mendengar pendapat dan masukan Anda agar kami dapat
-            meningkatkan pelayanan kami!
-          </p>
+    setLoading(true);
+    setStatusMessage({ type: '', text: '' });
+
+    try {
+      const surveyData = { ...formData, userId };
+      const response = await fetch('http://localhost:3001/api/submit-survey', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(surveyData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Gagal mengirim data ke server.');
+      }
+
+      setStatusMessage({
+        type: 'success',
+        text: 'Terima kasih atas masukan Anda! Data berhasil dikirim.',
+      });
+      setFormData({
+        name: '',
+        email: '',
+        institution: '',
+        serviceType: '',
+        otherService: '',
+        easeOfAccess: 0,
+        waitingTime: 0,
+        staffProfessionalism: 0,
+        serviceQuality: 0,
+        infoClarity: 0,
+        resultsAccess: 0,
+        facilityComfort: 0,
+        security: 0,
+        overallSatisfaction: 0,
+        futureHopes: '',
+        improvementSuggestions: '',
+      });
+      setViewMode('results');
+    } catch (error) {
+      console.error('Error submitting form data:', error);
+      setStatusMessage({ type: 'error', text: 'Terjadi kesalahan saat mengirim data. Mohon coba lagi.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+  const renderForm = () => (
+    <div className="container my-5">
+      <h2 className="text-center mb-4">Reviu Layanan Laboratorium</h2>
+      {statusMessage.text && (
+        <div className={`alert alert-${statusMessage.type}`} role="alert">
+          {statusMessage.text}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="card p-4 shadow">
+        <div className="mb-3">
+          <label className="form-label">Nama</label>
+          <input
+            type="text"
+            className="form-control"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
         </div>
 
-        <form onSubmit={handleSubmit} className="p-4 rounded-4 shadow-lg bg-white">
-          {/* Required fields */}
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Nama<span className="text-danger">*</span>
-            </label>
+        <div className="mb-3">
+          <label className="form-label">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">Instansi / Unit Kerja</label>
+          <input
+            type="text"
+            className="form-control"
+            name="institution"
+            value={formData.institution}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <h5 className="mt-4">Jenis Layanan Yang Digunakan</h5>
+        {[
+          "Fasilitas Uji Fisik - Saluran 2D Beton",
+          "Fasilitas Uji Fisik - Saluran 2D Kaca",
+          "Fasilitas Uji Fisik - Kolam 3D",
+          "Fasilitas Uji Fisik - Saluran Simulasi Tsunami",
+          "Fasilitas Uji Fisik - Penggunaan Data Primer",
+        ].map((service) => (
+          <div className="form-check" key={service}>
             <input
-              type="text"
-              className="form-control"
-              id="name"
-              name="name"
-              value={formData.name}
+              type="radio"
+              className="form-check-input"
+              name="serviceType"
+              value={service}
+              checked={formData.serviceType === service}
               onChange={handleChange}
-              required
             />
+            <label className="form-check-label">{service}</label>
           </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email<span className="text-danger">*</span>
+        ))}
+
+        <div className="form-check mt-2">
+          <input
+            type="radio"
+            className="form-check-input"
+            name="serviceType"
+            value="Yang lain"
+            checked={formData.serviceType === "Yang lain"}
+            onChange={handleChange}
+          />
+          <label className="form-check-label">Yang lain</label>
+        </div>
+        {formData.serviceType === "Yang lain" && (
+          <input
+            type="text"
+            className="form-control mt-2"
+            name="otherService"
+            value={formData.otherService}
+            onChange={handleChange}
+            placeholder="Sebutkan layanan lainnya"
+          />
+        )}
+
+        <hr className="my-4" />
+
+        {[
+          { id: 1, label: "Kemudahan dalam mengakses layanan", name: "easeOfAccess" },
+          { id: 2, label: "Waktu tunggu layanan", name: "waitingTime" },
+          { id: 3, label: "Profesionalisme staf laboratorium", name: "staffProfessionalism" },
+          { id: 4, label: "Kualitas hasil layanan", name: "serviceQuality" },
+          { id: 5, label: "Kejelasan informasi yang diberikan", name: "infoClarity" },
+          { id: 6, label: "Kemudahan dalam mengakses hasil", name: "resultsAccess" },
+          { id: 7, label: "Tingkat kebersihan dan kenyamanan fasilitas", name: "facilityComfort" },
+          { id: 8, label: "Tingkat keamanan dalam pelayanan", name: "security" },
+          { id: 9, label: "Kepuasan terhadap keseluruhan layanan", name: "overallSatisfaction" },
+        ].map((item) => (
+          <div className="mb-3" key={item.id}>
+            <label className="form-label">
+              {item.id}. {item.label}
             </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="institution" className="form-label">
-              Instansi / Unit Kerja<span className="text-danger">*</span>
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="institution"
-              name="institution"
-              value={formData.institution}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <hr className="my-5" />
-
-          {/* Service Type */}
-          <div className="mb-4">
-            <h5 className="fw-bold mb-3">Jenis Layanan Yang Digunakan</h5>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="serviceType"
-                id="service1"
-                value="Fasilitas Uji Fisik - Saluran 2D Beton"
-                onChange={handleChange}
-              />
-              <label className="form-check-label" htmlFor="service1">
-                Fasilitas Uji Fisik - Saluran 2D Beton
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="serviceType"
-                id="service2"
-                value="Fasilitas Uji Fisik - Saluran 2D Kaca"
-                onChange={handleChange}
-              />
-              <label className="form-check-label" htmlFor="service2">
-                Fasilitas Uji Fisik - Saluran 2D Kaca
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="serviceType"
-                id="service3"
-                value="Fasilitas Uji Fisik - Kolam 3D"
-                onChange={handleChange}
-              />
-              <label className="form-check-label" htmlFor="service3">
-                Fasilitas Uji Fisik - Kolam 3D
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="serviceType"
-                id="service4"
-                value="Fasilitas Uji Fisik - Saluran Simulasi Tsunami"
-                onChange={handleChange}
-              />
-              <label className="form-check-label" htmlFor="service4">
-                Fasilitas Uji Fisik - Saluran Simulasi Tsunami
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="serviceType"
-                id="service5"
-                value="Fasilitas Uji Fisik - Penggunaan Data Primer"
-                onChange={handleChange}
-              />
-              <label className="form-check-label" htmlFor="service5">
-                Fasilitas Uji Fisik - Penggunaan Data Primer
-              </label>
-            </div>
-            <div className="form-check mt-2">
-              <label className="form-check-label d-block" htmlFor="other">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="serviceType"
-                  id="other"
-                  value="Yang lain"
-                  onChange={handleChange}
-                />
-                Yang lain:
-                <input
-                  type="text"
-                  className="form-control mt-2"
-                  name="otherService"
-                  value={formData.otherService}
-                  onChange={handleChange}
-                  disabled={formData.serviceType !== "Yang lain"}
-                  placeholder="Sebutkan layanan lainnya"
-                />
-              </label>
+            <div>
+              {[1, 2, 3, 4, 5].map((rating) => (
+                <div className="form-check form-check-inline" key={rating}>
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    name={item.name}
+                    value={rating}
+                    checked={formData[item.name] === rating}
+                    onChange={handleRatingChange}
+                    required
+                  />
+                  <label className="form-check-label">{rating}</label>
+                </div>
+              ))}
             </div>
           </div>
+        ))}
 
-          <hr className="my-5" />
+        <div className="mb-3">
+          <label className="form-label">Harapan untuk layanan kedepan</label>
+          <textarea
+            className="form-control"
+            name="futureHopes"
+            rows="3"
+            value={formData.futureHopes}
+            onChange={handleChange}
+          ></textarea>
+        </div>
 
-          {/* Rating Questions */}
-          {[
-            { id: 1, label: "Kemudahan dalam mengakses layanan", name: "easeOfAccess" },
-            { id: 2, label: "Waktu tunggu layanan", name: "waitingTime" },
-            { id: 3, label: "Profesionalisme staf laboratorium", name: "staffProfessionalism" },
-            { id: 4, label: "Kualitas hasil layanan", name: "serviceQuality" },
-            { id: 5, label: "Kejelasan informasi yang diberikan", name: "infoClarity" },
-            { id: 6, label: "Kemudahan dalam mengakses hasil", name: "resultsAccess" },
-            { id: 7, label: "Tingkat kebersihan dan kenyamanan fasilitas", name: "facilityComfort" },
-            { id: 8, label: "Tingkat keamanan dalam pelayanan", name: "security" },
-            { id: 9, label: "Kepuasan terhadap keseluruhan layanan", name: "overallSatisfaction" },
-          ].map((item) => (
-            <div className="mb-4" key={item.id}>
-              <h6 className="fw-bold mb-3">{item.id}. {item.label}</h6>
-              <div className="rating-container">
-                {[1, 2, 3, 4, 5].map((rating) => (
-                  <label key={rating} className="rating-label me-3">
-                    <input
-                      type="radio"
-                      className="rating-input"
-                      name={item.name}
-                      value={rating}
-                      onChange={handleRatingChange}
-                      checked={formData[item.name] === rating}
-                      required
-                    />
-                    <span className="rating-value">{rating}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          ))}
+        <div className="mb-3">
+          <label className="form-label">Usulan perbaikan / tambahan layanan</label>
+          <textarea
+            className="form-control"
+            name="improvementSuggestions"
+            rows="3"
+            value={formData.improvementSuggestions}
+            onChange={handleChange}
+          ></textarea>
+        </div>
 
-          <hr className="my-5" />
+        <button
+          type="submit"
+          className="btn btn-danger w-100"
+          disabled={loading}
+        >
+          {loading ? "Mengirim..." : "Kirim Reviu"}
+        </button>
 
-          {/* Open-ended Questions */}
-          <div className="mb-4">
-            <label htmlFor="futureHopes" className="form-label fw-bold">
-              Apakah harapan untuk layanan kedepan?
-            </label>
-            <textarea
-              className="form-control"
-              id="futureHopes"
-              name="futureHopes"
-              rows="3"
-              value={formData.futureHopes}
-              onChange={handleChange}
-            ></textarea>
-          </div>
-          <div className="mb-4">
-            <label htmlFor="improvementSuggestions" className="form-label fw-bold">
-              Apakah ada usulan perbaikan atau tambahan layanan?
-            </label>
-            <textarea
-              className="form-control"
-              id="improvementSuggestions"
-              name="improvementSuggestions"
-              rows="3"
-              value={formData.improvementSuggestions}
-              onChange={handleChange}
-            ></textarea>
-          </div>
+        <button
+          type="button"
+          className="btn btn-outline-secondary w-100 mt-3"
+          onClick={() => setViewMode("results")}
+        >
+          Lihat Hasil
+        </button>
+        <button
+        type="button"
+        className="btn btn-secondary w-100 mt-3"
+        onClick={() => (window.location.href = "/")}
+      >
+        Kembali ke Home
+      </button>
 
-          <div className="d-grid mt-5">
-            <button type="submit" className="btn btn-primary btn-lg fw-bold submit-btn">
-              Kirim Reviu
-            </button>
-          </div>
-        </form>
-      </div>
-      <Footer />
+        <p className="mt-3 text-center text-muted">ID Pengguna: {userId}</p>
+      </form>
     </div>
   );
+
+  const renderResults = () => (
+    <div className="container my-5">
+      <h2 className="text-center mb-4">Hasil Reviu Layanan Laboratorium</h2>
+      <div className="table-responsive">
+        <table className="table table-striped table-bordered">
+          <thead className="table-light">
+            <tr>
+              <th>Tanggal</th>
+              <th>Nama</th>
+              <th>Layanan</th>
+              <th>Kemudahan Akses</th>
+              <th>Waktu Tunggu</th>
+              <th>Profesionalisme Staf</th>
+              <th>Kualitas Layanan</th>
+              <th>Kejelasan Info</th>
+              <th>Akses Hasil</th>
+              <th>Kenyamanan</th>
+              <th>Keamanan</th>
+              <th>Kepuasan</th>
+              <th>Harapan</th>
+              <th>Saran</th>
+            </tr>
+          </thead>
+          <tbody>
+            {surveyResults.length > 0 ? (
+              surveyResults.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.submissionDate}</td>
+                  <td>{item.name}</td>
+                  <td>
+                    {item.serviceType === "Yang lain"
+                      ? item.otherService
+                      : item.serviceType}
+                  </td>
+                  <td>{item.easeOfAccess}</td>
+                  <td>{item.waitingTime}</td>
+                  <td>{item.staffProfessionalism}</td>
+                  <td>{item.serviceQuality}</td>
+                  <td>{item.infoClarity}</td>
+                  <td>{item.resultsAccess}</td>
+                  <td>{item.facilityComfort}</td>
+                  <td>{item.security}</td>
+                  <td>{item.overallSatisfaction}</td>
+                  <td>{item.futureHopes || "-"}</td>
+                  <td>{item.improvementSuggestions || "-"}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="14" className="text-center">
+                  Belum ada data survei yang dikirim.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div className="text-center">
+        <button
+          className="btn btn-danger mt-3"
+          onClick={() => setViewMode("form")}
+        >
+          Kembali ke Formulir
+        </button>
+        <button
+        type="button"
+        className="btn btn-secondary w-100 mt-3"
+        onClick={() => (window.location.href = "/")}
+      >
+        Kembali ke Home
+      </button>
+      </div>
+    </div>
+  );
+
+  return <div>{viewMode === "form" ? renderForm() : renderResults()}</div>;
 };
 
 export default Survey;

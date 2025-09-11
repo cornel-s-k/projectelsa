@@ -33,6 +33,8 @@ import HKPLMTADLP from "./components/hkp/HKPLMTADLP";
 import FAQ from "./components/faq/FAQ";
 import LayananPage from "./components/layanan/layananPage"; // Tambahkan impor ini
 import Survey from "./components/survey/survey";
+import Timeline from "./components/timeline/timeline";
+import SDM from "./components/SDM/sdm";
 
 // 🔹 Halaman utama (HomePage)
 function HomePage() {
@@ -78,6 +80,10 @@ function App() {
 
         {/* halaman survey */}
         <Route path="/survey" element={<Survey />} />
+
+        <Route path="/timeline" element={<Timeline />} />
+
+        <Route path="/sdm" element={<SDM />} />
 
         {/* Halaman Detail Fasilitas */}
         <Route path="/fasilitas/1" element={<FasilitasDetail1 />} />

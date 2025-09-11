@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../home/Footer";
+import fasilitas3 from "../../assets/home/fasil3.jpeg";
 
 const FasilitasDetail3 = () => {
   return (
@@ -31,7 +32,7 @@ const FasilitasDetail3 = () => {
             </div>
             <div className="col-md-6 d-flex justify-content-center">
               <img
-                src="https://via.placeholder.com/600x400"
+                src={fasilitas3}
                 alt="Mekanika Tanah & Data Lapangan"
                 className="img-fluid rounded shadow hover-zoom"
               />
@@ -39,8 +40,8 @@ const FasilitasDetail3 = () => {
           </div>
 
           <div className="text-center mt-5">
-            <Link to="/" className="btn btn-danger px-4 py-2 fw-bold shadow">
-              ⬅ Kembali ke Home
+            <Link to="/#fasilitas-section" className="btn btn-danger px-4 py-2 fw-bold shadow">
+              ⬅ Kembali 
             </Link>
           </div>
         </div>

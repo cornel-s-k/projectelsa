@@ -75,13 +75,13 @@ const LayananSection = () => {
         </div>
 
         {/* More Info Button */}
-        <div className="text-center mt-5">
-          <Link to="/layanan"
-            className="btn btn-lg more-info-btn rounded-3 shadow-sm">
+       <div className="text-center mt-5">
+          <button className="btn btn-lg more-info-btn rounded-3 shadow-sm"
+          onClick={() => window.location.href = "https://elsa.brin.go.id/layanan/perlokasi/KST%20Serpong%20(Bacharuddin%20Jusuf%20Habibie)?lokasi=KS+Mlati+%28Subandono+Diposaptono%29&keywords="}>
             More Information
-          </Link>
+          </button>
         </div>
-      </div>
+        </div>
 
       {/* Custom CSS */}
       <style jsx>{`
