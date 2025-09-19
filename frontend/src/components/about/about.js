@@ -3,7 +3,8 @@ import "../../Custom.css";
 import Header from "../home/Header";
 import Footer from "../home/Footer";
 import pimpinan from "../../assets/about/pimpinan.jpg";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
+import OrgChart from "../about/OrgChart";
 
 const About = () => {
   return (
@@ -22,13 +23,43 @@ const About = () => {
               masyarakat. Fungsi utama laboratorium adalah:
             </p>
             <ul className="list-unstyled text-muted text-start d-inline-block">
-              <li>✅ Memfasilitasi kegiatan terkait Dinamika Pesisir dan Rekayasa Pantai</li>
-              <li>✅ Pengembangan riset & metodologi di bidang pesisir</li>
-              <li>✅ Posisi strategis laboratorium:</li>
-              <li>1. Keterlibatan Proyek Strategis Nasional Tanggul Laut</li>
-              <li>2. Mendukung infrastruktur maritim & sumber daya pesisir</li>
-              <li>3. Mendukung Program Strategi BRIN → Pusat Inovasi Maritim</li>
+              <li>✔ Memfasilitasi kegiatan terkait Dinamika Pesisir dan Rekayasa Pantai</li>
+              <li>✔ Pengembangan riset & metodologi di bidang pesisir</li>
             </ul>
+          </div>
+
+          {/* Section: Kata Pengantar */}
+          <div className="mb-5">
+            <h2 className="fw-bold mb-4 text-center text-dark">
+              Kata <span className="text-danger">Pengantar</span>
+            </h2>
+            <div className="row g-4">
+              <div className="col-md-6">
+                <div className="card h-100 shadow border-0 p-4 bg-white hover-lift">
+                  <h5 className="fw-bold text-danger mb-3">Koordinator</h5>
+                  <p className="text-muted">
+                    “Kami berkomitmen untuk menjadikan Laboratorium Dinamika Pesisir
+                    dan Rekayasa Pantai sebagai pusat unggulan dalam penelitian
+                    dan inovasi yang dapat memberikan kontribusi nyata
+                    bagi masyarakat dan bangsa.”
+                  </p>
+                  <p className="fw-bold mb-0">— Nama Kepala (Dummy)</p>
+                </div>
+              </div>
+
+              <div className="col-md-6">
+                <div className="card h-100 shadow border-0 p-4 bg-white hover-lift">
+                  <h5 className="fw-bold text-danger mb-3">Kepala Laboratorium</h5>
+                  <p className="text-muted">
+                    “Sebagai koordinator, kami mendorong kolaborasi aktif antar
+                    peneliti, mahasiswa, dan mitra eksternal untuk menciptakan
+                    solusi inovatif yang berkelanjutan di bidang kelautan
+                    dan pesisir.”
+                  </p>
+                  <p className="fw-bold mb-0">— Nama Koordinator (Dummy)</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Section: Struktur Organisasi */}
@@ -41,13 +72,7 @@ const About = () => {
               kolaborasi yang efektif antara pimpinan, staf peneliti, teknisi, dan
               mahasiswa.
             </p>
-            <div className="my-4">
-              <img
-                src="https://via.placeholder.com/800x400"
-                alt="Struktur Organisasi"
-                className="img-fluid rounded shadow hover-zoom"
-              />
-            </div>
+            <OrgChart />
           </div>
 
           {/* Section: Pimpinan */}
@@ -60,9 +85,8 @@ const About = () => {
             </p>
             <div className="row justify-content-center">
               {[
-                { nama: "Nama Pimpinan (Dummy)", jabatan: "Jabatan - Dalam Perbaikan" },
-                { nama: "Nama Pimpinan (Dummy)", jabatan: "Jabatan - Dalam Perbaikan" },
-                { nama: "Nama Pimpinan (Dummy)", jabatan: "Jabatan - Dalam Perbaikan" },
+                { nama: "Sandi Sufiandi", jabatan: "Ketua Tim" },
+                { nama: "Adnan Sandy Dwi M", jabatan: "Manager Dinamika Pesisir dan Rekayasa Pantai" },
               ].map((item, index) => (
                 <div key={index} className="col-md-4 mb-4">
                   <div className="card h-100 shadow border-0 hover-lift">

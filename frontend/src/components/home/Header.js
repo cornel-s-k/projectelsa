@@ -10,6 +10,7 @@ import "../../Custom.css";
 const Header = () => {
   return (
     <header>
+    {/* //  <header className="fixed-top">  */}
       <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div className="container">
           {/* Logo */}
@@ -49,37 +50,39 @@ const Header = () => {
                   Fasilitas
                 </a>
               </li>
-              <li className="nav-item">
-  <a
-    className="nav-link"
-    href="https://elsa.brin.go.id/layanan/perlokasi/KST%20Serpong%20(Bacharuddin%20Jusuf%20Habibie)?lokasi=KS+Mlati+%28Subandono+Diposaptono%29&keywords="
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Layanan
-  </a>
-</li>
+              <li>
+                <a className="nav-link" href="/#layanan-section">
+                   Layanan
+                 </a>
+              </li>
                 <a className="nav-link" href="/#hkp-section">
                   HKP
                 </a>
               <li className="nav-item">
-                <Link className="nav-link" to="/survey">
-                  Survey
-                </Link>
-              </li>
+  <a
+    className="nav-link"
+    href="https://forms.gle/DEn7BPxiEmgkgnY29"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Survey
+  </a>
+</li>
               <li className="nav-item">
                 <Link className="nav-link" to="/faq">
                   FAQ
                 </Link>
               </li>
-              <li className="nav-item ms-lg-3">
-                <button
-                  className="btn rounded-pill text-white btn-custom-hover"
-                  style={{ backgroundColor: "#A8A196" }}
-                >
-                  Hubungi Kami
-                </button>
-              </li>
+             <li className="nav-item ms-lg-3">
+  <a
+    href="tel:08119811589"
+    className="btn rounded-pill text-white btn-custom-hover"
+    style={{ backgroundColor: "#A8A196" }}
+  >
+    Hubungi Kami
+  </a>
+</li>
+
             </ul>
           </div>
         </div>

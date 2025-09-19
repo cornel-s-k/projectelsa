@@ -18,9 +18,10 @@ const TaglineSection = () => {
           menyediakan layanan riset, pengujian, dan pengembangan metodologi
           dengan standar ilmiah tinggi.
         </p>
-        <button className="btn btn-lg rounded-pill custom-btn animate-fade-up delay-2">
+       <a
+    href="tel:08119811589" className="btn btn-lg rounded-pill custom-btn animate-fade-up delay-2">
           Hubungi Kami
-        </button>
+        </a>
       </div>
 
       <style jsx>{`

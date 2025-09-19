@@ -32,9 +32,8 @@ const Survey = () => {
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
-  const [viewMode, setViewMode] = useState('form');
-  const [surveyResults, setSurveyResults] = useState([]);
   const [isAuthReady, setIsAuthReady] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false); // <--- State baru untuk melacak pengiriman
 
   // Inisialisasi Firebase
   useEffect(() => {
@@ -65,29 +64,8 @@ const Survey = () => {
 
     setupFirebase();
   }, []);
+  
 
-  // Fetch hasil survei
-  useEffect(() => {
-    if (viewMode === 'results' && isAuthReady) {
-      fetchSurveyResults();
-    }
-  }, [viewMode, isAuthReady, userId]);
-
-  const fetchSurveyResults = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/api/get-results?userId=' + userId);
-      if (!response.ok) {
-        throw new Error('Gagal mengambil data dari server.');
-      }
-      const data = await response.json();
-      setSurveyResults(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setStatusMessage({ type: 'error', text: 'Gagal memuat data hasil survei.' });
-    }
-  };
-
-  // Handle input form
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -133,25 +111,7 @@ const Survey = () => {
         type: 'success',
         text: 'Terima kasih atas masukan Anda! Data berhasil dikirim.',
       });
-      setFormData({
-        name: '',
-        email: '',
-        institution: '',
-        serviceType: '',
-        otherService: '',
-        easeOfAccess: 0,
-        waitingTime: 0,
-        staffProfessionalism: 0,
-        serviceQuality: 0,
-        infoClarity: 0,
-        resultsAccess: 0,
-        facilityComfort: 0,
-        security: 0,
-        overallSatisfaction: 0,
-        futureHopes: '',
-        improvementSuggestions: '',
-      });
-      setViewMode('results');
+      setIsSubmitted(true); // <--- Mengatur state untuk menampilkan halaman terima kasih
     } catch (error) {
       console.error('Error submitting form data:', error);
       setStatusMessage({ type: 'error', text: 'Terjadi kesalahan saat mengirim data. Mohon coba lagi.' });
@@ -159,16 +119,17 @@ const Survey = () => {
       setLoading(false);
     }
   };
+
   const renderForm = () => (
     <div className="container my-5">
-      <h2 className="text-center mb-4">Reviu Layanan Laboratorium</h2>
+      <h2 className="text-center mb-4">Review Layanan Laboratorium</h2>
       {statusMessage.text && (
         <div className={`alert alert-${statusMessage.type}`} role="alert">
           {statusMessage.text}
         </div>
       )}
-
       <form onSubmit={handleSubmit} className="card p-4 shadow">
+        {/* Konten formulir tetap sama */}
         <div className="mb-3">
           <label className="form-label">Nama</label>
           <input
@@ -180,7 +141,6 @@ const Survey = () => {
             required
           />
         </div>
-
         <div className="mb-3">
           <label className="form-label">Email</label>
           <input
@@ -192,7 +152,6 @@ const Survey = () => {
             required
           />
         </div>
-
         <div className="mb-3">
           <label className="form-label">Instansi / Unit Kerja</label>
           <input
@@ -204,15 +163,8 @@ const Survey = () => {
             required
           />
         </div>
-
         <h5 className="mt-4">Jenis Layanan Yang Digunakan</h5>
-        {[
-          "Fasilitas Uji Fisik - Saluran 2D Beton",
-          "Fasilitas Uji Fisik - Saluran 2D Kaca",
-          "Fasilitas Uji Fisik - Kolam 3D",
-          "Fasilitas Uji Fisik - Saluran Simulasi Tsunami",
-          "Fasilitas Uji Fisik - Penggunaan Data Primer",
-        ].map((service) => (
+        {["Fasilitas Uji Fisik - Saluran 2D Beton", "Fasilitas Uji Fisik - Saluran 2D Kaca", "Fasilitas Uji Fisik - Kolam 3D", "Fasilitas Uji Fisik - Saluran Simulasi Tsunami", "Fasilitas Uji Fisik - Penggunaan Data Primer",].map((service) => (
           <div className="form-check" key={service}>
             <input
               type="radio"
@@ -225,7 +177,6 @@ const Survey = () => {
             <label className="form-check-label">{service}</label>
           </div>
         ))}
-
         <div className="form-check mt-2">
           <input
             type="radio"
@@ -247,9 +198,7 @@ const Survey = () => {
             placeholder="Sebutkan layanan lainnya"
           />
         )}
-
         <hr className="my-4" />
-
         {[
           { id: 1, label: "Kemudahan dalam mengakses layanan", name: "easeOfAccess" },
           { id: 2, label: "Waktu tunggu layanan", name: "waitingTime" },
@@ -283,7 +232,6 @@ const Survey = () => {
             </div>
           </div>
         ))}
-
         <div className="mb-3">
           <label className="form-label">Harapan untuk layanan kedepan</label>
           <textarea
@@ -294,7 +242,6 @@ const Survey = () => {
             onChange={handleChange}
           ></textarea>
         </div>
-
         <div className="mb-3">
           <label className="form-label">Usulan perbaikan / tambahan layanan</label>
           <textarea
@@ -305,7 +252,6 @@ const Survey = () => {
             onChange={handleChange}
           ></textarea>
         </div>
-
         <button
           type="submit"
           className="btn btn-danger w-100"
@@ -313,103 +259,35 @@ const Survey = () => {
         >
           {loading ? "Mengirim..." : "Kirim Reviu"}
         </button>
-
         <button
           type="button"
-          className="btn btn-outline-secondary w-100 mt-3"
-          onClick={() => setViewMode("results")}
+          className="btn btn-secondary w-100 mt-3"
+          onClick={() => (window.location.href = "/")}
         >
-          Lihat Hasil
+          Kembali ke Home
         </button>
-        <button
-        type="button"
-        className="btn btn-secondary w-100 mt-3"
-        onClick={() => (window.location.href = "/")}
-      >
-        Kembali ke Home
-      </button>
-
-        <p className="mt-3 text-center text-muted">ID Pengguna: {userId}</p>
       </form>
     </div>
   );
 
-  const renderResults = () => (
-    <div className="container my-5">
-      <h2 className="text-center mb-4">Hasil Reviu Layanan Laboratorium</h2>
-      <div className="table-responsive">
-        <table className="table table-striped table-bordered">
-          <thead className="table-light">
-            <tr>
-              <th>Tanggal</th>
-              <th>Nama</th>
-              <th>Layanan</th>
-              <th>Kemudahan Akses</th>
-              <th>Waktu Tunggu</th>
-              <th>Profesionalisme Staf</th>
-              <th>Kualitas Layanan</th>
-              <th>Kejelasan Info</th>
-              <th>Akses Hasil</th>
-              <th>Kenyamanan</th>
-              <th>Keamanan</th>
-              <th>Kepuasan</th>
-              <th>Harapan</th>
-              <th>Saran</th>
-            </tr>
-          </thead>
-          <tbody>
-            {surveyResults.length > 0 ? (
-              surveyResults.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.submissionDate}</td>
-                  <td>{item.name}</td>
-                  <td>
-                    {item.serviceType === "Yang lain"
-                      ? item.otherService
-                      : item.serviceType}
-                  </td>
-                  <td>{item.easeOfAccess}</td>
-                  <td>{item.waitingTime}</td>
-                  <td>{item.staffProfessionalism}</td>
-                  <td>{item.serviceQuality}</td>
-                  <td>{item.infoClarity}</td>
-                  <td>{item.resultsAccess}</td>
-                  <td>{item.facilityComfort}</td>
-                  <td>{item.security}</td>
-                  <td>{item.overallSatisfaction}</td>
-                  <td>{item.futureHopes || "-"}</td>
-                  <td>{item.improvementSuggestions || "-"}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="14" className="text-center">
-                  Belum ada data survei yang dikirim.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-      <div className="text-center">
+  const renderThankYou = () => (
+    <div className="container my-5 text-center">
+      <div className="card p-5 shadow">
+        <h2 className="text-success mb-3">Terima kasih atas masukan Anda!</h2>
+        <p>Data survei Anda telah berhasil kami terima. Masukan Anda sangat berarti untuk perbaikan layanan kami.</p>
         <button
-          className="btn btn-danger mt-3"
-          onClick={() => setViewMode("form")}
+          type="button"
+          className="btn btn-secondary w-100 mt-3"
+          onClick={() => (window.location.href = "/")}
         >
-          Kembali ke Formulir
+          Kembali ke Home
         </button>
-        <button
-        type="button"
-        className="btn btn-secondary w-100 mt-3"
-        onClick={() => (window.location.href = "/")}
-      >
-        Kembali ke Home
-      </button>
       </div>
     </div>
   );
 
-  return <div>{viewMode === "form" ? renderForm() : renderResults()}</div>;
+  // Mengubah logika render utama
+  return <div>{isSubmitted ? renderThankYou() : renderForm()}</div>;
 };
 
 export default Survey;

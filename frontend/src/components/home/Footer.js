@@ -20,7 +20,7 @@ function Footer() {
               />
             </div>
             <p className="mb-1">labpantai@brin.go.id</p>
-            <p className="mb-3">08119811586</p>
+            <p className="mb-3">08119811589</p>
             <div>
               <a
                 href="#"
@@ -69,17 +69,17 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <Link className="nav-link footer-link" to="/layanan">
+                <Link className="nav-link footer-link" to="/#layanan-section">
                   Layanan
                 </Link>
               </li>
               <li>
                 <a
-                  href="#"
-                  className="nav-link footer-link"
-                >
-                  Kontak
-                </a>
+                 href="tel:08119811589"
+                className="nav-link footer-link"
+                 >
+                   Kontak
+                 </a>
               </li>
             </ul>
           </div>

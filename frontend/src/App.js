@@ -19,7 +19,6 @@ import HKPSection from "./components/home/HKPSection";
 import MitraKerjasama from "./components/home/MitraKerjasama";
 import Footer from "./components/home/Footer";
 import TimelineLayanan from "./components/home/TimelineLayanan";
-
 // Halaman About
 import About from "./components/about/about";
 
@@ -31,7 +30,6 @@ import HKPLMFDP from "./components/hkp/HKPLMFDP";
 import HKPLSHIAS from "./components/hkp/HKPLSHIAS";
 import HKPLMTADLP from "./components/hkp/HKPLMTADLP";
 import FAQ from "./components/faq/FAQ";
-import LayananPage from "./components/layanan/layananPage"; // Tambahkan impor ini
 import Survey from "./components/survey/survey";
 import Timeline from "./components/timeline/timeline";
 import SDM from "./components/SDM/sdm";
@@ -72,9 +70,6 @@ function App() {
         {/* Halaman About */}
         <Route path="/about" element={<About />} />
 
-        {/* halaman layanan */}
-        <Route path="/layanan" element={<LayananPage />} />
-
         {/* halaman faq */}
         <Route path="/faq" element={<FAQ />} />
 
@@ -94,6 +89,9 @@ function App() {
         <Route path="/hkp/HKPL-MFDP" element={<HKPLMFDP />} />
         <Route path="/hkp/HKPL-SHIAS" element={<HKPLSHIAS/>} />
         <Route path="/hkp/HKPL-MTADLP" element={< HKPLMTADLP />} />
+
+        <Route path="/timeline" element={<Timeline />} />
+
       </Routes>
     </Router>
   );

@@ -15,31 +15,36 @@ const LayananSection = () => {
       title: "Sub Lab Model Fisik Dinamika Pantai",
       description: "Paket Pengujian Model Fisik di Kolam Gelombang 3D",
       image: image1,
+      link: "https://elsa.brin.go.id/layanan/index/Paket%20Pengujian%20Model%20Fisik%20di%20Kolam%20Gelombang%203D/4649"
     },
     {
       title: "Sub Lab Model Fisik Dinamika Pantai",
       description: "Paket Pengujian Model Fisik di Saluran Gelombang 2D",
       image: image2,
+      link: "https://elsa.brin.go.id/layanan/index/Paket%20Pengujian%20Model%20Fisik%20di%20Saluran%20Gelombang%202D/4650"
     },
     {
       title: "Sub Lab Simulasi Hidro-Oseanografi",
       description: "Pemodelan Hidrodinamika menggunakan MIKE 21",
       image: image3,
+      link: "https://elsa.brin.go.id/layanan/index/Pemodelan%20Hidrodinamika%20menggunakan%20MIKE%2021%20/4434"
     },
     {
       title: "Sub Lab Simulasi Interaksi Air-Struktur",
       description: "Pemodelan Hidrodinamika menggunakan Flow 3D",
       image: image4,
+      link: "https://elsa.brin.go.id/layanan/index/Pemodelan%20Numerik%20Hidrodinamika%20menggunakan%20Software%20Computational%20Fluid%20DynamicsCFD-FLOW3D/4429"
     },
     {
       title: "Sub Lab Mekanika Tanah & Data Lapangan",
-      description: "Pemetikan Data Kekuatan Struktur di Lapangan",
+      description: "Pengujian Ukuran Butiran",
       image: image5,
+      link: "https://elsa.brin.go.id/layanan/index/Pengujian%20Ukuran%20Butiran/4471"
     },
   ];
 
   return (
-    <section className="bg-light py-5">
+    <section id="layanan-section" className="bg-light py-5">
       <div className="container">
         {/* Section Title */}
         <div className="text-center mb-5">
@@ -65,7 +70,7 @@ const LayananSection = () => {
                 <div className="card-body text-center d-flex flex-column">
                   <h6 className="text-muted small">{service.title}</h6>
                   <h5 className="fw-semibold">{service.description}</h5>
-                  <a href="#" className="btn mt-auto selengkapnya-btn">
+                  <a href={service.link} className="btn mt-auto selengkapnya-btn">
                     Selengkapnya
                   </a>
                 </div>

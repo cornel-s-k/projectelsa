@@ -14,7 +14,7 @@ const FasilitasDetail1 = () => {
               Uji Model <span className="text-danger">Fisik</span>
             </h2>
             <p className="lead text-muted">
-              Laboratorium Model Fisik Terbesar dan Tercanggih di Indonesia
+              Laboratorium Model Fisik 
             </p>
           </div>
 
